@@ -36,6 +36,7 @@
         function loadPixels() {
             const savedData = localStorage.getItem(storageKey);
             if (savedData) {
+                console.log('Data loaded from localStorage:', savedData); // Отладочная информация
                 return JSON.parse(savedData);
             }
             return Array(numPixels * numPixels).fill('white');
@@ -43,6 +44,7 @@
 
         function savePixels() {
             const pixels = Array.from(document.querySelectorAll('.pixel')).map(pixel => pixel.style.backgroundColor || 'white');
+            console.log('Data to be saved:', pixels); // Отладочная информация
             localStorage.setItem(storageKey, JSON.stringify(pixels));
         }
 
@@ -57,6 +59,11 @@
                 savePixels();
             });
             canvas.appendChild(pixel);
+        }
+    </script>
+</body>
+</html>
+
         }
     </script>
 </body>
