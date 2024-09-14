@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art Canvas</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #canvas {
+            display: grid;
+            grid-template-columns: repeat(50, 20px); /* 50 столбцов по 20px */
+            grid-template-rows: repeat(50, 20px); /* 50 строк по 20px */
+        }
+        .pixel {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas"></div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const numPixels = 50; // количество пикселей по ширине и высоте
+
+        // Создаем пиксели и добавляем их в контейнер
+        for (let i = 0; i < numPixels * numPixels; i++) {
+            const pixel = document.createElement('div');
+            pixel.className = 'pixel';
+            pixel.addEventListener('click', () => {
+                pixel.style.backgroundColor = pixel.style.backgroundColor === 'black' ? 'white' : 'black';
+            });
+            canvas.appendChild(pixel);
+        }
+    </script>
+</body>
+</html>
