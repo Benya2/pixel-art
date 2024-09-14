@@ -15,12 +15,12 @@
         }
         #canvas {
             display: grid;
-            grid-template-columns: repeat(50, 20px); /* 50 столбцов по 20px */
-            grid-template-rows: repeat(50, 20px); /* 50 строк по 20px */
+            grid-template-columns: repeat(10, 30px); /* Уменьшено количество пикселей для упрощения проверки */
+            grid-template-rows: repeat(10, 30px);
         }
         .pixel {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             background-color: white;
             border: 1px solid #ddd;
         }
@@ -30,41 +30,22 @@
     <div id="canvas"></div>
     <script>
         const canvas = document.getElementById('canvas');
-        const numPixels = 50; // количество пикселей по ширине и высоте
-        const storageKey = 'pixelArt'; // ключ для localStorage
-
-        function loadPixels() {
-            const savedData = localStorage.getItem(storageKey);
-            console.log('Loaded data from localStorage:', savedData); // Проверка загруженных данных
-            if (savedData) {
-                return JSON.parse(savedData);
-            }
-            return Array(numPixels * numPixels).fill('white');
-        }
-
-        function savePixels() {
-            const pixels = Array.from(document.querySelectorAll('.pixel')).map(pixel => pixel.style.backgroundColor || 'white');
-            console.log('Data to be saved:', pixels); // Проверка данных для сохранения
-            localStorage.setItem(storageKey, JSON.stringify(pixels));
-        }
+        const numPixels = 10; // Уменьшено количество пикселей для упрощения проверки
 
         function createPixels() {
-            const pixelData = loadPixels();
             for (let i = 0; i < numPixels * numPixels; i++) {
                 const pixel = document.createElement('div');
                 pixel.className = 'pixel';
-                pixel.style.backgroundColor = pixelData[i];
+                pixel.style.backgroundColor = 'white'; // Установите начальный цвет
                 pixel.addEventListener('click', () => {
-                    const currentColor = pixel.style.backgroundColor;
-                    pixel.style.backgroundColor = (currentColor === 'black' || currentColor === 'rgb(0, 0, 0)') ? 'white' : 'black';
-                    savePixels();
+                    pixel.style.backgroundColor = pixel.style.backgroundColor === 'black' ? 'white' : 'black';
                 });
                 canvas.appendChild(pixel);
             }
         }
 
-        // Начальная отладка
-        console.log('Script loaded and running');
+        // Вывод сообщения в консоль для проверки
+        console.log('Creating pixels');
         createPixels();
     </script>
 </body>
