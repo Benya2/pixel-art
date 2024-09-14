@@ -35,8 +35,8 @@
 
         function loadPixels() {
             const savedData = localStorage.getItem(storageKey);
+            console.log('Loaded data from localStorage:', savedData); // Проверка загруженных данных
             if (savedData) {
-                console.log('Data loaded from localStorage:', savedData); // Отладочная информация
                 return JSON.parse(savedData);
             }
             return Array(numPixels * numPixels).fill('white');
@@ -44,27 +44,28 @@
 
         function savePixels() {
             const pixels = Array.from(document.querySelectorAll('.pixel')).map(pixel => pixel.style.backgroundColor || 'white');
-            console.log('Data to be saved:', pixels); // Отладочная информация
+            console.log('Data to be saved:', pixels); // Проверка данных для сохранения
             localStorage.setItem(storageKey, JSON.stringify(pixels));
         }
 
-        // Создаем пиксели и добавляем их в контейнер
-        const pixelData = loadPixels();
-        for (let i = 0; i < numPixels * numPixels; i++) {
-            const pixel = document.createElement('div');
-            pixel.className = 'pixel';
-            pixel.style.backgroundColor = pixelData[i];
-            pixel.addEventListener('click', () => {
-                pixel.style.backgroundColor = pixel.style.backgroundColor === 'black' ? 'white' : 'black';
-                savePixels();
-            });
-            canvas.appendChild(pixel);
+        function createPixels() {
+            const pixelData = loadPixels();
+            for (let i = 0; i < numPixels * numPixels; i++) {
+                const pixel = document.createElement('div');
+                pixel.className = 'pixel';
+                pixel.style.backgroundColor = pixelData[i];
+                pixel.addEventListener('click', () => {
+                    const currentColor = pixel.style.backgroundColor;
+                    pixel.style.backgroundColor = (currentColor === 'black' || currentColor === 'rgb(0, 0, 0)') ? 'white' : 'black';
+                    savePixels();
+                });
+                canvas.appendChild(pixel);
+            }
         }
-    </script>
-</body>
-</html>
 
-        }
+        // Начальная отладка
+        console.log('Script loaded and running');
+        createPixels();
     </script>
 </body>
 </html>
